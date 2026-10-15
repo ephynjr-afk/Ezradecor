@@ -1,0 +1,163 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#7138a8">
+<title>Ezra Decor | Dekorasi Spesial</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#fffaff;color:#30223a}
+header{background:#7138a8;color:white;padding:18px 5%;display:flex;justify-content:space-between;align-items:center;gap:12px;position:sticky;top:0}
+header h2{margin:0;font-size:21px}
+header a{color:white;text-decoration:none;font-size:13px}
+.hero{padding:48px 22px;text-align:center;background:linear-gradient(135deg,#f4e3ff,#ffe9f0)}
+.hero h1{font-size:36px;margin:8px 0;color:#63358c}
+.hero p{line-height:1.7;color:#65536e}
+.btn{display:inline-block;background:#7138a8;color:white;padding:13px 18px;border:0;border-radius:10px;text-decoration:none;font-weight:bold;cursor:pointer}
+section{padding:32px 18px;max-width:1050px;margin:auto}
+h2{margin-top:0}
+.intro{font-size:14px;color:#75677b;line-height:1.7}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.card{background:white;border:1px solid #eee2f4;border-radius:14px;padding:14px;box-shadow:0 4px 14px #4c28610b}
+.art{height:100px;border-radius:10px;background:linear-gradient(135deg,#f6ddec,#e7d8ff);display:grid;place-items:center;font-size:45px}
+.card h3{margin:13px 0 7px;font-size:17px}
+.card p{font-size:12px;color:#766b7d;line-height:1.6;min-height:38px}
+.price{font-weight:bold;color:#7138a8;margin:12px 0}
+.card button{width:100%;font-size:12px}
+label{display:block;font-size:13px;font-weight:bold;margin:13px 0}
+input,select,textarea{display:block;width:100%;padding:12px;margin-top:7px;border:1px solid #e4d6eb;border-radius:9px;background:white;font:14px Arial}
+.cartrow{display:flex;justify-content:space-between;gap:8px;align-items:center;padding:12px 0;border-bottom:1px solid #eee2f4;font-size:13px}
+.cartrow button{border:0;background:#f2e5fa;color:#7138a8;border-radius:7px;padding:7px}
+.total{font-size:18px;font-weight:bold;margin:18px 0}
+.notice{font-size:11px;color:#766b7d;line-height:1.6}
+footer{text-align:center;background:#30223a;color:white;padding:25px 15px;font-size:12px;line-height:1.8}
+@media(min-width:700px){.hero{padding:75px 20px}.hero h1{font-size:48px}.grid{grid-template-columns:repeat(3,minmax(0,1fr))}section{padding:45px 24px}}
+</style>
+</head>
+<body>
+<header>
+  <h2>✿ Ezra Decor</h2>
+  <a href="#keranjang">🛒 Keranjang <span id="count">0</span></a>
+</header>
+
+<div class="hero">
+  <div>✨ DEKORASI UNTUK MOMEN SPESIAL</div>
+  <h1>Make Every Moment Beautiful</h1>
+  <p>Dekorasi indah untuk pernikahan, lamaran, ulang tahun, dan acara istimewamu.</p>
+  <a class="btn" href="#paket">Lihat Paket Dekorasi</a>
+</div>
+
+<section>
+  <h2>Selamat datang di Ezra Decor</h2>
+  <p class="intro">Pilih paket favoritmu, masukkan ke keranjang, kemudian kirim permintaan pesanan langsung ke WhatsApp kami.</p>
+</section>
+
+<section id="paket">
+  <h2>🌸 Katalog Paket</h2>
+  <p class="intro">Harga merupakan estimasi awal dan akan dikonfirmasi sesuai lokasi, tema, serta kebutuhan acara.</p>
+  <div class="grid" id="products"></div>
+</section>
+
+<section id="keranjang">
+  <h2>🛒 Keranjang Pesanan</h2>
+  <div id="items">Keranjang masih kosong.</div>
+  <div class="total">Total: <span id="total">Rp0</span></div>
+  <button class="btn" onclick="checkoutCart()">Pesan Keranjang via WhatsApp</button>
+</section>
+
+<section id="pesan">
+  <h2>📝 Formulir Pemesanan</h2>
+  <p class="intro">Isi data berikut agar kami bisa menyiapkan penawaran untuk acara kamu.</p>
+  <form id="orderForm">
+    <label>Nama lengkap<input name="nama" required placeholder="Nama kamu"></label>
+    <label>Nomor WhatsApp<input name="telepon" required inputmode="tel" placeholder="Nomor aktif"></label>
+    <label>Jenis acara
+      <select name="acara" required>
+        <option value="">Pilih acara</option>
+        <option>Pernikahan</option><option>Lamaran</option>
+        <option>Ulang Tahun</option><option>Baby Shower</option>
+        <option>Wisuda</option><option>Anniversary</option>
+        <option>Acara lainnya</option>
+      </select>
+    </label>
+    <label>Tanggal acara<input name="tanggal" type="date" required></label>
+    <label>Lokasi acara<input name="lokasi" required placeholder="Kota atau alamat acara"></label>
+    <label>Catatan tambahan<textarea name="catatan" rows="3" placeholder="Tema warna, ukuran tempat, dll."></textarea></label>
+    <button class="btn" type="submit">Kirim Formulir ke WhatsApp ↗</button>
+  </form>
+</section>
+
+<footer>
+  <h2>Ezra Decor</h2>
+  Dekorasi indah untuk cerita spesialmu.<br>
+  WhatsApp:082340394243<br>
+  © <span id="year"></span> Ezra Decor
+</footer>
+
+<script>
+const WA="6282340394243";
+const products=[
+ {id:1,nama:"Birthday Mini",jenis:"Ulang Tahun",harga:350000,emoji:"🎈",deskripsi:"Dekorasi sederhana untuk ulang tahun intim."},
+ {id:2,nama:"Birthday Premium",jenis:"Ulang Tahun",harga:850000,emoji:"🎂",deskripsi:"Backdrop dan balon untuk pesta meriah."},
+ {id:3,nama:"Lamaran Intimate",jenis:"Lamaran",harga:1200000,emoji:"💍",deskripsi:"Dekorasi romantis untuk momen lamaran."},
+ {id:4,nama:"Wedding Elegant",jenis:"Pernikahan",harga:3500000,emoji:"💐",deskripsi:"Dekorasi elegan untuk hari pernikahan."},
+ {id:5,nama:"Baby Shower",jenis:"Baby Shower",harga:950000,emoji:"🧸",deskripsi:"Dekorasi pastel untuk menyambut si kecil."},
+ {id:6,nama:"Event Custom",jenis:"Acara lainnya",harga:1500000,emoji:"✨",deskripsi:"Untuk wisuda, anniversary dan acara lainnya."}
+];
+let cart=[];
+const uang=n=>new Intl.NumberFormat("id-ID",{style:"currency",currency:"IDR",maximumFractionDigits:0}).format(n);
+document.getElementById("products").innerHTML=products.map(p=>`
+ <article class="card">
+  <div class="art">${p.emoji}</div>
+  <h3>${p.nama}</h3>
+  <small>${p.jenis}</small>
+  <p>${p.deskripsi}</p>
+  <div class="price">Mulai ${uang(p.harga)}</div>
+  <button class="btn" onclick="add(${p.id})">+ Tambah ke Keranjang</button>
+ </article>`).join("");
+function add(id){
+ const p=cart.find(x=>x.id===id);
+ if(p)p.qty++;else cart.push({id,qty:1});
+ render();
+}
+function render(){
+ document.getElementById("count").textContent=cart.reduce((s,x)=>s+x.qty,0);
+ document.getElementById("total").textContent=uang(cart.reduce((s,x)=>s+products.find(p=>p.id===x.id).harga*x.qty,0));
+ document.getElementById("items").innerHTML=cart.length?cart.map(x=>{
+ const p=products.find(p=>p.id===x.id);
+ return `<div class="cartrow"><span>${p.nama}<br>${uang(p.harga)} × ${x.qty}</span>
+ <span><button onclick="change(${x.id},-1)">−</button>
+ <button onclick="change(${x.id},1)">+</button>
+ <button onclick="removeItem(${x.id})">Hapus</button></span></div>`;
+ }).join(""):"Keranjang masih kosong.";
+}
+function change(id,n){const p=cart.find(x=>x.id===id);if(p)p.qty+=n;cart=cart.filter(x=>x.qty>0);render()}
+function removeItem(id){cart=cart.filter(x=>x.id!==id);render()}
+
+function sendWA(message) 
+{
+  const url = "https://wa.me/6282340394243?text="
+    encodeURIComponent(message);
+
+  window.location.href = url;
+}
+
+function checkoutCart(){
+ if(!cart.length){alert("Tambahkan paket ke keranjang terlebih dahulu.");return}
+ const lines=cart.map(x=>{const p=products.find(p=>p.id===x.id);return "- "+p.nama+" x"+x.qty+" = "+uang(p.harga*x.qty)});
+ const total=cart.reduce((s,x)=>s+products.find(p=>p.id===x.id).harga*x.qty,0);
+ sendWA("Halo Ezra Decor, saya ingin memesan:\n\n"+lines.join("\n")+"\n\nEstimasi total: "+uang(total)+"\nMohon konfirmasi harga, tanggal, dan ketersediaan.");
+}
+document.getElementById("orderForm").addEventListener("submit",function(e){
+ e.preventDefault();
+ const d=new FormData(this);
+ const msg="Halo Ezra Decor, saya ingin konsultasi pemesanan dekorasi.\n\nNama: "+d.get("nama")+"\nNomor WhatsApp: "+d.get("telepon")+"\nAcara: "+d.get("acara")+"\nTanggal: "+d.get("tanggal")+"\nLokasi: "+d.get("lokasi")+"\nCatatan: "+(d.get("catatan")||"-")+"\n\nMohon informasi harga dan ketersediaan. Terima kasih.";
+ sendWA(msg);
+});
+document.getElementById("year").textContent=new Date().getFullYear();
+render();
+</script>
+</body>
+</html>
